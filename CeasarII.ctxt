@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=CeasarII
+comment1.params=
+comment1.target=CeasarII()
+comment2.params=s
+comment2.target=char\ encrypt(char)
+comment3.params=s
+comment3.target=char\ decrypt(char)
+comment4.params=
+comment4.target=void\ output()
+comment5.params=
+comment5.target=void\ main()
+numComments=6

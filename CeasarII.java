@@ -1,51 +1,89 @@
-import java.util.*;
+//import java.util.*; Not required.
 public class CeasarII
 {
-    int n;
-    public CeasarII()
-    {
-        n = 0;
+    private static final int A = (int)'A';
+    private static final int Z = (int)'Z';
+    private static final int a = (int)'a';
+    private static final int z = (int)'z';
+    
+    private final int CAESER_SHIFT;
+    
+    /**
+    * Default constructor : Creates an instance of CaeserII class, which encrypts strings using caeser cipher technique
+    * @param caeserShift shift to apply, so that character is encrypted using caeser shift
+    */
+    public CeasarII(int caeserShift) {
+        this.CAESER_SHIFT = caeserShift % 26;
     }
-    private char encrypt(char s)
-    {
-        int c = (int)s + n;
-        if(Character.isUpperCase(s))
-        {
-            if(c>90)
-            c = c-26;
-            if(c<65)
-            c =  c+26;
-        }
-        if(Character.isLowerCase(s))
-        {
-            if(c>122)
-            c = c-26;
-            if(c<97)
-            c = c+26;
-        }
-        char o = (char)c;
-        return o;
+    
+    /** 
+    * Encryprts one character using the caeser shift
+    * @param s character to be encrypted
+    */
+    private char encryptChar(char s) {
+        int encryptedChar = alignShift((int)s + this.CAESER_SHIFT, s);
+        return (char) encryptedChar;
     }
-    private char decrypt(char s)
-    {
-        int c = (int)s - n;
-        if(Character.isUpperCase(s))
-        {
-            if(c>90)
-            c = c-26;
-            if(c<65)
-            c =  c+26;
-        }
-        if(Character.isLowerCase(s))
-        {
-            if(c>122)
-                c = c-26;
-            if(c<97)
-            c = c+26;
-        }
-        char o = (char)c;
-        return o;
+    
+    /**
+    * Decrypts one character using the caeser shift
+    * @param s character to be decrypted
+    */
+    private char decryptChar(char s) {
+        int decryptedChar = alignShift((int)s - this.CAESER_SHIFT, s);
+        return (char) decryptedChar;
     }
+    
+    /**
+    * Aligns the shift to correct complete the caeser cypher
+    * @param rep integer representation of the character
+    * @param original original character so that the casing of output can be deicided
+    */
+    private int alignShift(int rep, char original) {
+        if(Character.isUpperCase(s)) {
+            if(rep > Z){
+                rep -= 26;
+            } else if(rep < A) {
+                decryptedChar += 26;
+            }
+        } else if(Character.isLowerCase(s)) {
+            if(rep > z) {
+                rep -= 26;
+            } else if(rep < a) {
+                rep += 26;
+            }
+        }
+        return rep;
+    }
+    
+    /**
+    * Encrypts the given string using the caeser cipher
+    * @param str String to be encrypted
+    */
+    public String ecrypt(String str) {
+        int strLen = str.length();
+        StringBuilder encrypted = new StringBuilder(strLen);
+        for (int i = 0; i < strLen; i++) {
+            encrypted.append(encryptChar(str.charAt(i)));
+        }
+        return encrypted.toString();
+    }
+    
+    /**
+    * Decrypts the given string using caeser cipher
+    * @param str String to decrypt
+    */
+    public String decrypt(String str) {
+        int strLen = str.length();
+        StringBuilder decrypted = new StringBuilder(strLen);
+        for (int i = 0; i < strLen; i++) {
+            decrypted.append(decryptChar(str.charAt(i)));
+        }
+        return decrypted.toString();
+    }
+    
+    /*
+    Move this to a different file, this doesn't belong here
     void output()
     {
         String in; int s,i;
@@ -86,4 +124,5 @@ public class CeasarII
         CeasarII ob = new CeasarII();
         ob.output();
     }
+    */
 }
